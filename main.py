@@ -39,6 +39,7 @@ def show_contact(args, contacts):
             return phone
         return "Contact not found."
 
+@input_error
 def show_all_contacts(contacts):
     if not contacts:
         return "No contacts found."
