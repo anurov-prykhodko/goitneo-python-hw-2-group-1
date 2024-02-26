@@ -32,11 +32,18 @@ class Record:
         self.phones = [phone for phone in self.phones if phone.value != phone_number]
         
     def edit_phone(self, old_phone_number, new_phone_number):
-        for phone in self.phones:
-            if str(phone.value) == old_phone_number:
-                phone.value == Phone(new_phone_number)
+        for i, _ in enumerate(self.phones):
+            if str(self.phones[i]) == old_phone_number:
+                self.phones[i] = Phone(new_phone_number)
                 break
-    
+
+    def find_phone(self, user_name):
+        for phone in self.phones:
+            if phone.value == user_name:
+                return phone.value
+        raise ValueError("Phone number not found")
+
+
     def __str__(self):
         return f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)}"
 
@@ -74,14 +81,17 @@ for name, record in book.data.items():
     print(record)
 
 # Знаходження та редагування телефону для John
-# john = book.find("John")
-# john.edit_phone("1234567890", "1112223333")
+john = book.find("John")
+john.edit_phone("1234567890", "1112223333")
 
-# print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
+print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
 
 # Пошук конкретного телефону у записі John
-# found_phone = john.find_phone("5555555555")
-# print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
+found_phone = john.find_phone("5555555555")
+print(f"{john.name}: {found_phone}")  # Виведення: 5555555555
 
 # Видалення запису Jane
-# book.delete("Jane")
+book.delete("Jane")
+
+for name, record in book.data.items():
+    print(record)
